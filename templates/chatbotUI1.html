@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chatbot UI</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <div class="chat-container">
+            <div class="chat-header">
+                <center>
+                    <h2>Chatbot</h2>
+                    <p>How may I assist you?</p>
+                </center>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <!--Chat messages will dynamically appear here-->
+            </div>
+
+            <!--User input section-->
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message here...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+
+        <script>
+            const sendButton = document.getElementById("send-button");
+            const userInput = document.getElementById("user-input");
+            const chatMessages = document.getElementById("chat-messages");
+
+            // Function to append messages to the chat window
+            function appendMessage(sender, message) {
+                const messageElement = document.createElement("div");
+                messageElement.textContent = `${sender}: ${message}`;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the latest message
+            }
+
+            // Event listener for the Send button
+            sendButton.addEventListener("click", async () => {
+                const message = userInput.value.trim();
+                if (!message) return; // Ignore empty messages
+
+                // Append user message to the chat
+                appendMessage("You", message);
+
+                // Send the message to the Flask backend
+                const response = await fetch("/get_response", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+
+                // Append chatbot response to the chat
+                appendMessage("Chatbot", data.response);
+
+                // Clear the input field
+                userInput.value = "";
+            });
+
+            // Allow Enter key to send messages
+            userInput.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    sendButton.click();
+                }
+            });
+        </script>
+    </body>
+</html>

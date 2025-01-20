@@ -1,0 +1,4 @@
+Include the following libraries for the app to work
+Flask
+transformers
+scikit-learn
