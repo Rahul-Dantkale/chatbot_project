@@ -8,4 +8,12 @@ This is a chatbot project based on NLP and AI. It integrates rule-based, retriev
 - 🌐 Web-based Interface with Flask.
 - 📦 Preprocessing Support: Includes TF-IDF vectorizer and matrix generation.
 
-![Chatbot Preview](https://github.com/Rahul-Dantkale/chatbot_project/blob/main/Screenshot%202025-01-20%20213244.png?raw=true)
+**Project Structure**
+
+![Chatbot Preview](https://github.com/Rahul-Dantkale/chatbot_project/blob/main/demo/Screenshot%202025-01-20%20213244.png?raw=true)
+
+**Sample**
+
+<p align="center">
+  <img src="https://github.com/Rahul-Dantkale/chatbot_project/blob/main/demo/sample_gif.gif?raw=true" alt="Chatbot Demo" width="400" height="500">
+</p>
